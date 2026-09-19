@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marvin Benitez — Desarrollador Web</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0D1117;
+    --surface: #161B22;
+    --border: #21262D;
+    --accent: #00C9A7;
+    --accent2: #58A6FF;
+    --text: #E6EDF3;
+    --muted: #8B949E;
+    --dim: #30363D;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(13,17,23,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .nav-logo {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700; font-size: 1.1rem;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--muted); text-decoration: none;
+    font-size: 0.875rem; font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  /* SECTIONS */
+  section { padding: 5rem 2rem; max-width: 900px; margin: 0 auto; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding-top: 80px;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.8rem; font-weight: 500;
+    color: var(--accent); letter-spacing: 1.5px;
+    text-transform: uppercase; margin-bottom: 1.2rem;
+  }
+
+  h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight: 700; line-height: 1.1;
+    letter-spacing: -1.5px; margin-bottom: 1rem;
+    color: var(--text);
+  }
+  h1 span { color: var(--accent); }
+
+  .hero-sub {
+    font-size: 1.05rem; color: var(--muted);
+    max-width: 540px; margin-bottom: 2.5rem; line-height: 1.7;
+  }
+
+  /* Terminal */
+  .terminal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    width: 100%; max-width: 560px;
+    margin-bottom: 2.5rem;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  }
+  .terminal-bar {
+    background: var(--dim);
+    padding: 0.6rem 1rem;
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+  .dot { width: 12px; height: 12px; border-radius: 50%; }
+  .dot.r { background: #FF5F57; }
+  .dot.y { background: #FFBD2E; }
+  .dot.g { background: #28CA41; }
+  .terminal-body { padding: 1.2rem 1.4rem; font-size: 0.85rem; line-height: 2; }
+  .terminal-body code { font-family: 'Courier New', monospace; }
+  .prompt { color: var(--accent); }
+  .cmd { color: var(--text); }
+  .out { color: var(--muted); }
+  .cursor {
+    display: inline-block; width: 8px; height: 1em;
+    background: var(--accent); vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 0.7rem 1.6rem;
+    border-radius: 6px; font-size: 0.9rem; font-weight: 600;
+    text-decoration: none; transition: all 0.2s; cursor: pointer;
+  }
+  .btn-primary {
+    background: var(--accent); color: #0D1117;
+  }
+  .btn-primary:hover { background: #00e5c0; }
+  .btn-outline {
+    border: 1px solid var(--border); color: var(--text);
+    background: transparent;
+  }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ABOUT */
+  h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.8rem; font-weight: 700;
+    letter-spacing: -0.5px; margin-bottom: 1.5rem;
+    color: var(--text);
+  }
+  h2 .line {
+    display: inline-block; width: 2.5rem; height: 3px;
+    background: var(--accent); border-radius: 2px;
+    vertical-align: middle; margin-right: 0.8rem;
+  }
+
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3rem;
+  }
+  .about-text p { color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+  .about-text p strong { color: var(--text); }
+
+  /* SKILLS */
+  .skills-categories { display: flex; flex-direction: column; gap: 1.5rem; }
+  .skill-group {}
+  .skill-group-label {
+    font-size: 0.75rem; font-weight: 600; color: var(--accent);
+    text-transform: uppercase; letter-spacing: 1px;
+    margin-bottom: 0.6rem;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 0.8rem; font-weight: 500;
+    padding: 0.35rem 0.75rem;
+    border-radius: 4px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .tag:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* PROJECTS */
+  .projects-grid { display: flex; flex-direction: column; gap: 1.5rem; }
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.8rem;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .project-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .project-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.8rem; }
+  .project-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 1.15rem; font-weight: 600; color: var(--text);
+  }
+  .project-badge {
+    font-size: 0.7rem; font-weight: 600;
+    padding: 0.2rem 0.6rem; border-radius: 20px;
+    background: rgba(0,201,167,0.12); color: var(--accent);
+    border: 1px solid rgba(0,201,167,0.3);
+    white-space: nowrap;
+  }
+  .project-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.7; margin-bottom: 1.2rem; }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .stack-tag {
+    background: rgba(88,166,255,0.08);
+    border: 1px solid rgba(88,166,255,0.2);
+    color: var(--accent2);
+    font-size: 0.75rem; font-weight: 500;
+    padding: 0.2rem 0.55rem; border-radius: 4px;
+  }
+
+  /* CONTACT */
+  .contact-inner {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px; padding: 2.5rem;
+    text-align: center;
+  }
+  .contact-inner p { color: var(--muted); margin-bottom: 2rem; }
+  .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+  .contact-link {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid var(--border); border-radius: 6px;
+    color: var(--muted); text-decoration: none;
+    font-size: 0.85rem; font-weight: 500;
+    transition: all 0.2s;
+  }
+  .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+  .contact-link svg { flex-shrink: 0; }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 2rem;
+    border-top: 1px solid var(--border);
+    color: var(--muted); font-size: 0.8rem;
+  }
+
+  /* DIVIDER */
+  .section-divider {
+    border: none; border-top: 1px solid var(--border);
+    max-width: 900px; margin: 0 auto;
+  }
+
+  @media (max-width: 640px) {
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .nav-links { display: none; }
+    h1 { letter-spacing: -1px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">MB</a>
+  <ul class="nav-links">
+    <li><a href="#sobre-mi">Sobre mí</a></li>
+    <li><a href="#habilidades">Habilidades</a></li>
+    <li><a href="#proyectos">Proyectos</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <p class="hero-eyebrow">Disponible para proyectos</p>
+  <h1>Marvin Benítez<br><span>Desarrollador Web</span></h1>
+  <p class="hero-sub">
+    Apasionado del desarrollo web, con experiencia en frontend, backend y bases de datos.
+    Construyo soluciones funcionales usando tecnologías modernas.
+  </p>
+
+  <div class="terminal">
+    <div class="terminal-bar">
+      <div class="dot r"></div>
+      <div class="dot y"></div>
+      <div class="dot g"></div>
+    </div>
+    <div class="terminal-body">
+      <code>
+        <div><span class="prompt">$ </span><span class="cmd">whoami</span></div>
+        <div class="out">Marvin Benítez — Desarrollador Web en crecimiento</div>
+        <div style="margin-top:0.3rem"><span class="prompt">$ </span><span class="cmd">tech --stack</span></div>
+        <div class="out">Frontend: HTML · CSS · JavaScript</div>
+        <div class="out">Backend:  Python · Django · Node.js</div>
+        <div class="out">DB:       MySQL · Oracle · SQL Server</div>
+        <div class="out">Tools:    Power BI · Power Apps · Linux</div>
+        <div style="margin-top:0.3rem"><span class="prompt">$ </span><span class="cmd">status</span></div>
+        <div class="out">Listo para colaborar <span class="cursor"></span></div>
+      </code>
+    </div>
+  </div>
+
+  <div class="hero-ctas">
+    <a href="#proyectos" class="btn btn-primary">Ver proyectos</a>
+    <a href="#contacto" class="btn btn-outline">Contactarme</a>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- SOBRE MÍ -->
+<section id="sobre-mi">
+  <h2><span class="line"></span>Sobre mí</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        Soy <strong>Marvin Benítez</strong>, desarrollador web con una fuerte pasión por crear
+        soluciones digitales funcionales y bien estructuradas. Me considero alguien en constante
+        aprendizaje, con metas claras y ganas de crecer en la industria.
+      </p>
+      <p>
+        Mi experiencia abarca tanto el <strong>frontend</strong> — con HTML, CSS y JavaScript —
+        como el <strong>backend</strong>, trabajando con Python, Django, Wagtail y Node.js.
+        También tengo sólidos conocimientos en gestión de <strong>bases de datos</strong> en
+        entornos de prueba: MySQL, Oracle y SQL Server.
+      </p>
+      <p>
+        Adicionalmente, manejo el ecosistema de <strong>Microsoft Power Platform</strong>:
+        Power Apps, Power Automate y Power BI, lo que me permite construir soluciones
+        empresariales de automatización y análisis de datos.
+      </p>
+    </div>
+    <div class="about-text">
+      <p>
+        Me desenvuelvo cómodamente en entornos <strong>Windows, macOS y Linux</strong>, y
+        tengo experiencia con la línea de comandos de Linux para gestión de servidores y
+        entornos de desarrollo.
+      </p>
+      <p>
+        Mi objetivo es seguir desarrollando proyectos reales que <strong>resuelvan problemas
+        concretos</strong>, colaborar con equipos multidisciplinarios y consolidarme como
+        desarrollador web profesional.
+      </p>
+      <p style="color: var(--accent); font-weight: 500;">
+        Buscando oportunidades para aplicar y expandir mis habilidades.
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- HABILIDADES -->
+<section id="habilidades">
+  <h2><span class="line"></span>Habilidades</h2>
+  <div class="skills-categories">
+    <div class="skill-group">
+      <p class="skill-group-label">Frontend</p>
+      <div class="skill-tags">
+        <span class="tag">HTML5</span>
+        <span class="tag">CSS3</span>
+        <span class="tag">JavaScript</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <p class="skill-group-label">Backend & Frameworks</p>
+      <div class="skill-tags">
+        <span class="tag">Python</span>
+        <span class="tag">Django</span>
+        <span class="tag">Wagtail</span>
+        <span class="tag">Node.js</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <p class="skill-group-label">Bases de datos</p>
+      <div class="skill-tags">
+        <span class="tag">MySQL</span>
+        <span class="tag">Oracle</span>
+        <span class="tag">SQL Server</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <p class="skill-group-label">Microsoft Power Platform</p>
+      <div class="skill-tags">
+        <span class="tag">Power Apps</span>
+        <span class="tag">Power Automate</span>
+        <span class="tag">Power BI</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <p class="skill-group-label">Sistemas operativos & Herramientas</p>
+      <div class="skill-tags">
+        <span class="tag">Linux</span>
+        <span class="tag">Windows</span>
+        <span class="tag">macOS</span>
+        <span class="tag">Git</span>
+        <span class="tag">Terminal / CLI</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- PROYECTOS -->
+<section id="proyectos">
+  <h2><span class="line"></span>Proyectos</h2>
+  <div class="projects-grid">
+
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-title">Sistema de gestión con Django</span>
+        <span class="project-badge">En desarrollo</span>
+      </div>
+      <p class="project-desc">
+        Aplicación web construida con Django que permite gestionar registros y consultar información
+        desde una base de datos MySQL. Incluye autenticación de usuarios, panel de administración
+        y vistas dinámicas renderizadas por el servidor.
+      </p>
+      <div class="project-stack">
+        <span class="stack-tag">Python</span>
+        <span class="stack-tag">Django</span>
+        <span class="stack-tag">MySQL</span>
+        <span class="stack-tag">HTML/CSS</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-title">Dashboard de datos con Power BI</span>
+        <span class="project-badge">Completado</span>
+      </div>
+      <p class="project-desc">
+        Tablero interactivo de análisis de datos construido con Power BI, conectado a fuentes
+        SQL Server. Permite visualizar métricas clave, filtrar por fechas y exportar reportes
+        para la toma de decisiones empresariales.
+      </p>
+      <div class="project-stack">
+        <span class="stack-tag">Power BI</span>
+        <span class="stack-tag">SQL Server</span>
+        <span class="stack-tag">Power Query</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-header">
+        <span class="project-title">Automatización con Power Automate</span>
+        <span class="project-badge">Completado</span>
+      </div>
+      <p class="project-desc">
+        Flujo de automatización empresarial desarrollado con Power Automate y Power Apps para
+        gestionar solicitudes internas, enviar notificaciones automáticas y reducir tareas manuales
+        repetitivas en procesos de oficina.
+      </p>
+      <div class="project-stack">
+        <span class="stack-tag">Power Automate</span>
+        <span class="stack-tag">Power Apps</span>
+        <span class="stack-tag">SharePoint</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="section-divider">
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <h2><span class="line"></span>Contacto</h2>
+  <div class="contact-inner">
+    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.4rem; margin-bottom: 0.8rem;">¿Hablamos?</h3>
+    <p>Estoy abierto a oportunidades, proyectos freelance y colaboraciones. No dudes en escribirme.</p>
+    <div class="contact-links">
+      <a href="mailto:tu@email.com" class="contact-link">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+        </svg>
+        Email
+      </a>
+      <a href="https://linkedin.com/in/marvinbenitez" target="_blank" class="contact-link">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2z"/>
+          <circle cx="4" cy="4" r="2"/>
+        </svg>
+        LinkedIn
+      </a>
+      <a href="https://github.com/marvinbenitez" target="_blank" class="contact-link">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+        </svg>
+        GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Diseñado y construido por Marvin Benítez · 2025</p>
+</footer>
+
+</body>
+</html>
